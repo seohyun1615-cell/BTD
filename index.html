@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>친구야 생일 축하해 🎂</title>
+  <style>
+    /* CSS 변수: 크림, 연한 핑크, 라벤더 감성 색상 */
+    :root {
+      --bg-cream: #FAF7F2;
+      --bg-card: #FFFFFF;
+      --primary-pink: #FF7597;
+      --primary-pink-hover: #F05C82;
+      --pink-soft: #FFF0F3;
+      --pink-border: #FFCCD5;
+      --lavender-primary: #8B5CF6;
+      --lavender-soft: #F5F3FF;
+      --lavender-border: #DDD6FE;
+      --gold-soft: #FEF3C7;
+      --gold-border: #FDE68A;
+      --text-main: #1F2937;
+      --text-sub: #4B5563;
+      --text-muted: #9CA3AF;
+      --border-subtle: #E5E7EB;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(255, 117, 151, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 30px -10px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Pretendard", sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 상단 헤더 */
+    .app-header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 14px 20px;
+    }
+
+    .header-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 기본 컨테이너 */
+    .main-container {
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      flex: 1;
+    }
+
+    /* 알림 배너 */
+    .alert-banner {
+      background: linear-gradient(135deg, #FFF0F5, #F5F3FF);
+      border: 1px solid var(--pink-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .alert-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alert-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .alert-text-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .alert-text-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .alert-close-btn {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      border-radius: var(--radius-full);
+    }
+
+    .alert-close-btn:hover {
+      color: var(--text-main);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* 오늘 날짜 및 요약 바 */
+    .today-summary-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .today-summary-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .today-date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      background: #FFFFFF;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .stats-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .stat-val.highlight {
+      color: var(--primary-pink);
+    }
+
+    /* 검색 및 컨트롤 툴바 */
+    .toolbar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (min-width: 768px) {
+      .toolbar-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 11px 16px 11px 40px;
+      font-size: 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      background: #F9FAFB;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      background: #FFFFFF;
+      border-color: var(--primary-pink);
+      box-shadow: 0 0 0 3px rgba(255, 117, 151, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-pink), #FB7185);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(255, 117, 151, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-pink-hover), #E11D48);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-sub);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: #F9FAFB;
+      color: var(--text-main);
+    }
+
+    /* 친구 목록 그리드 */
+    .friend-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .friend-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .friend-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* 친구 카드 */
+    .friend-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .friend-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #E2E8F0;
+    }
+
+    /* 오늘 생일인 친구 카드 특별 강조 */
+    .friend-card.is-today {
+      border: 2px solid var(--primary-pink);
+      background: linear-gradient(145deg, #FFFFFF, #FFF5F7);
+      box-shadow: 0 10px 25px -5px rgba(255, 117, 151, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .card-friend-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: var(--pink-soft);
+      border: 1px solid var(--pink-border);
+      flex-shrink: 0;
+    }
+
+    .friend-card.is-today .card-avatar {
+      background: linear-gradient(135deg, #FFE4E6, #FCE7F3);
+      animation: pulse-cake 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-cake {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .friend-name-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      word-break: break-all;
+    }
+
+    .friend-birthday-date {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* D-Day 뱃지 */
+    .d-day-badge {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .d-day-badge.today {
+      background: #FFE4E6;
+      color: #E11D48;
+      border: 1px solid #FDA4AF;
+    }
+
+    .d-day-badge.tomorrow {
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+    }
+
+    .d-day-badge.upcoming {
+      background: #F3E8FF;
+      color: #7E22CE;
+      border: 1px solid #E9D5FF;
+    }
+
+    .d-day-badge.default {
+      background: #F3F4F6;
+      color: #4B5563;
+      border: 1px solid #E5E7EB;
+    }
+
+    /* 카드 메모 */
+    .card-memo {
+      font-size: 12px;
+      color: #6B7280;
+      background: #F9FAFB;
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin: 10px 0 14px;
+      line-height: 1.4;
+      border-left: 3px solid var(--border-subtle);
+    }
+
+    .friend-card.is-today .card-memo {
+      background: #FFF1F2;
+      border-left-color: var(--primary-pink);
+      color: #9F1239;
+    }
+
+    /* 알림 상태 라벨 */
+    .card-notify-status {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    /* 카드 하단 액션 버튼 */
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      border-top: 1px solid #F3F4F6;
+      padding-top: 10px;
+      margin-top: auto;
+    }
+
+    .btn-card-action {
+      background: none;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-card-action:hover {
+      background: #F3F4F6;
+      color: var(--text-main);
+    }
+
+    .btn-card-action.delete:hover {
+      background: #FEE2E2;
+      border-color: #FECACA;
+      color: #DC2626;
+    }
+
+    /* 빈 상태 안내 */
+    .empty-state {
+      background: var(--bg-card);
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 50px 24px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .empty-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .empty-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+    }
+
+    /* 모달 공통 */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(17, 24, 39, 0.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      padding: 26px 28px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-subtle);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: #F3F4F6;
+      color: var(--text-main);
+    }
+
+    /* 폼 요소 */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .form-label .req {
+      color: #E11D48;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: #F9FAFB;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      background: #FFFFFF;
+      border-color: var(--primary-pink);
+      box-shadow: 0 0 0 3px rgba(255, 117, 151, 0.15);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-radio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .form-radio-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .radio-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: #F9FAFB;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .radio-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .radio-card:has(input:checked) {
+      background: var(--pink-soft);
+      border-color: var(--primary-pink);
+      color: var(--primary-pink);
+      box-shadow: 0 2px 8px rgba(255, 117, 151, 0.15);
+    }
+
+    .form-error {
+      font-size: 12px;
+      color: #DC2626;
+      background: #FEF2F2;
+      border: 1px solid #FEE2E2;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .form-help {
+      font-size: 11px;
+      color: var(--lavender-primary);
+      background: var(--lavender-soft);
+      border: 1px solid var(--lavender-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      margin-top: 8px;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* 생일 당일 축하 모달 특별 디자인 */
+    .celebrate-dialog {
+      max-width: 440px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--pink-border);
+      background: linear-gradient(180deg, #FFFFFF, #FFF7F9);
+    }
+
+    .celebrate-cake-icon {
+      font-size: 72px;
+      margin: 12px 0;
+      filter: drop-shadow(0 8px 12px rgba(255, 117, 151, 0.2));
+      display: inline-block;
+      animation: floatCake 3s ease-in-out infinite;
+    }
+
+    @keyframes floatCake {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .celebrate-emojis-row {
+      font-size: 24px;
+      letter-spacing: 8px;
+      margin-bottom: 8px;
+    }
+
+    .celebrate-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .celebrate-highlight-name {
+      color: var(--primary-pink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .celebrate-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+    }
+
+    /* 토스트 알림 메시지 */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast-message {
+      background: #1F2937;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 전체 화면 폭죽 캔버스 */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    /* 푸터 */
+    .app-footer {
+      border-top: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=1f94f900"></script></head>
+<body>
+  <!-- 폭죽 캔버스 -->
+  <canvas id="confettiCanvas" style="display: none;"></canvas>
+
+  <!-- 상단 앱 헤더 -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <span class="brand-icon">🎂</span>
+        <div>
+          <h1 class="brand-title">친구야 생일 축하해</h1>
+          <p class="brand-desc">소중한 친구들의 생일을 잊지 않도록!</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="btnOpenMobileModal">
+          <span>📱</span> 핸드폰 접속
+        </button>
+        <button class="btn btn-primary" id="btnOpenAddModal">
+          <span>＋</span> 친구 등록
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 본문 -->
+  <main class="main-container">
+    <!-- 생일 알림 배너 (당일/하루 전 해당 친구가 있을 때 동적 표시) -->
+    <section id="alertBanner" class="alert-banner" style="display: none;">
+      <div class="alert-content">
+        <span class="alert-icon" id="alertIcon">🎉</span>
+        <div>
+          <div class="alert-text-title" id="alertTitle">생일 알림</div>
+          <div class="alert-text-desc" id="alertDesc">알림 메시지</div>
+        </div>
+      </div>
+      <button class="alert-close-btn" id="btnDismissAlert" title="닫기">✕</button>
+    </section>
+
+    <!-- 오늘 날짜 및 요약 바 -->
+    <div class="today-summary-bar">
+      <div class="today-date-badge" id="todayDateDisplay">
+        <span>📅</span> <span id="currentDateText">2026년 10월 27일</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">오늘 생일 🎂</div>
+          <div class="stat-val highlight" id="statTodayCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">이번 주 생일 🎁</div>
+          <div class="stat-val" id="statWeekCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">이번 달 생일 🎈</div>
+          <div class="stat-val" id="statMonthCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">등록된 친구 👥</div>
+          <div class="stat-val" id="statTotalCount">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 검색 및 필터 툴바 -->
+    <div class="toolbar-card">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="친구 이름을 검색해 보세요 (실시간 검색)"
+          autocomplete="off"
+        />
+      </div>
+
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <button class="btn btn-secondary" id="btnReplayCelebration" style="display: none;">
+          <span>🎉</span> 축하 애니메이션
+        </button>
+        <button class="btn btn-secondary" id="btnAddSampleData">
+          <span>✨</span> 예시 친구 추가
+        </button>
+      </div>
+    </div>
+
+    <!-- 친구 목록 영역 -->
+    <section>
+      <div id="friendListContainer" class="friend-grid">
+        <!-- JS로 동적 렌더링 -->
+      </div>
+
+      <!-- 친구가 없을 때 / 검색 결과 없을 때 안내 -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon" id="emptyIcon">💌</div>
+        <h3 class="empty-title" id="emptyTitle">아직 등록된 친구가 없어요.</h3>
+        <p class="empty-desc" id="emptyDesc">첫 번째 친구의 생일을 등록해 보세요!</p>
+        <button class="btn btn-primary" id="btnEmptyAdd">
+          <span>＋</span> 첫 친구 등록하기
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 친구 등록/수정 모달 -->
+  <div class="modal-backdrop" id="friendFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="formModalTitle">
+          <span>🎂</span> 친구 생일 등록
+        </h3>
+        <button class="modal-close" id="btnCloseFormModal">✕</button>
+      </div>
+
+      <div class="form-error" id="formErrorMessage"></div>
+
+      <form id="friendForm">
+        <input type="hidden" id="editFriendId" value="" />
+
+        <div class="form-group">
+          <label class="form-label" for="inputName">
+            친구 이름 <span class="req">*</span>
+          </label>
+          <input
+            type="text"
+            id="inputName"
+            class="form-input"
+            placeholder="예: 김민수, 지은이"
+            maxlength="30"
+            required
+          />
+        </div>
+
+        <div class="form-group form-row-2">
+          <div>
+            <label class="form-label" for="selectMonth">
+              생일 월 <span class="req">*</span>
+            </label>
+            <select id="selectMonth" class="form-select">
+              <!-- 1월 ~ 12월 -->
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="selectDay">
+              생일 일 <span class="req">*</span>
+            </label>
+            <select id="selectDay" class="form-select">
+              <!-- 1일 ~ 31일 -->
+            </select>
+          </div>
+        </div>
+
+        <div id="leapYearNotice" class="form-help" style="display: none;">
+          💡 2월 29일 윤년 생일은 평년에도 2월 28일을 알림 및 D-day 기준일로 자동 처리합니다.
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label">알림 시점 설정</label>
+          <div class="form-radio-grid">
+            <label class="radio-card">
+              <input type="radio" name="notifyTiming" value="both" checked />
+              <span>🔔</span>
+              <span>하루 전 및 당일</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="notifyTiming" value="day_before" />
+              <span>🎁</span>
+              <span>하루 전</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="notifyTiming" value="day_of" />
+              <span>🎂</span>
+              <span>당일</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="notifyTiming" value="none" />
+              <span>🔕</span>
+              <span>알림 없음</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputMemo">
+            축하 메모 / 선물 아이디어 (선택)
+          </label>
+          <input
+            type="text"
+            id="inputMemo"
+            class="form-input"
+            placeholder="예: 딸기 케이크 좋아함, 축하 톡 보내기"
+            maxlength="80"
+          />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btnCancelForm">취소</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitForm">저장하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 삭제 확인 모달 -->
+  <div class="modal-backdrop" id="deleteConfirmModal">
+    <div class="modal-dialog" style="max-width: 380px; text-align: center;">
+      <div style="font-size: 40px; margin-bottom: 12px;">🗑️</div>
+      <h3 class="modal-title" style="justify-content: center; margin-bottom: 8px;">
+        친구 생일 정보를 삭제할까요?
+      </h3>
+      <p id="deleteConfirmText" style="font-size: 13px; color: var(--text-sub); margin-bottom: 20px;">
+        삭제된 친구의 생일 정보는 복구할 수 없습니다.
+      </p>
+      <div style="display: flex; gap: 8px; justify-content: center;">
+        <button class="btn btn-secondary" id="btnCancelDelete" style="width: 50%;">취소</button>
+        <button class="btn" id="btnExecuteDelete" style="width: 50%; background: #EF4444; color: #FFF;">삭제하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 생일 당일 특별 축하 모달 -->
+  <div class="modal-backdrop" id="celebrateModal">
+    <div class="modal-dialog celebrate-dialog">
+      <div class="celebrate-emojis-row">🎈 ✨ 🎁 🎉 ⭐</div>
+      <div class="celebrate-cake-icon">🎂</div>
+      <h2 class="celebrate-title">
+        오늘은 <span id="celebrateFriendNames" class="celebrate-highlight-name"></span>의 생일이에요!
+      </h2>
+      <p class="celebrate-subtitle">
+        생일 축하해! 오늘 하루 행복하게 보내! 💖
+      </p>
+
+      <div id="celebrateFriendsSubList" style="margin-bottom: 20px; text-align: left; max-height: 140px; overflow-y: auto;">
+        <!-- 생일인 친구 카드 목록 -->
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-secondary" id="btnCelebrateReplayConfetti" style="width: 50%;">
+          <span>🎉</span> 폭죽 다시 보기
+        </button>
+        <button class="btn btn-primary" id="btnCloseCelebrate" style="width: 50%;">
+          축하 확인 & 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 핸드폰 접속 및 홈 화면 추가 안내 모달 -->
+  <div class="modal-backdrop" id="mobileAccessModal">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>📱</span> 핸드폰으로 접속하기</h3>
+        <button class="modal-close" id="btnCloseMobileModal">✕</button>
+      </div>
+      <div style="font-size: 13px; color: var(--text-sub); line-height: 1.6; margin-bottom: 16px;">
+        <div style="background: linear-gradient(135deg, #FFF0F5, #F5F3FF); border: 1px solid var(--pink-border); border-radius: 14px; padding: 12px; margin-bottom: 14px;">
+          <strong style="color: var(--primary-pink); display: block; margin-bottom: 4px;">🎉 네, 핸드폰에서도 100% 동일하게 실행됩니다!</strong>
+          반응형 디자인으로 제작되어 스마트폰 작은 화면에서도 카드와 버튼이 알맞게 최적화됩니다.
+        </div>
+        <div style="margin-bottom: 12px;">
+          <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">현재 페이지 주소</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="mobileUrlInput" readonly style="flex: 1; padding: 8px 12px; font-size: 12px; border: 1px solid var(--border-subtle); border-radius: 10px; background: #F9FAFB;" />
+            <button class="btn btn-primary" id="btnCopyMobileUrl" style="padding: 8px 14px; font-size: 12px;">링크 복사</button>
+          </div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">카카오톡 ‘나와의 채팅’에 붙여넣고 누르면 폰에서 바로 열립니다.</p>
+        </div>
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 12px; font-size: 11px; color: var(--text-sub);">
+          <strong style="display: block; color: var(--text-main); margin-bottom: 4px;">💡 스마트폰 홈 화면에 '진짜 앱'처럼 추가하는 방법</strong>
+          • <strong>아이폰 (Safari)</strong>: 하단 공유 아이콘(네모 위 화살표) ➔ [홈 화면에 추가]<br />
+          • <strong>갤럭시 (Chrome)</strong>: 우측 상단 메뉴(점 3개) ➔ [홈 화면에 추가]
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <button class="btn btn-secondary" id="btnConfirmMobileModal" style="width: 100%;">확인 & 닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 안내 -->
+  <div class="toast-container">
+    <div class="toast-message" id="toastMessage">완료 메시지</div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="app-footer">
+    친구야 생일 축하해 · 소중한 사람들의 특별한 날을 기억합니다.
+  </footer>
+
+  <script>
+    /* =========================================================
+       1. 유틸리티 함수: 윤년, D-day, 유효성 검사
+       ========================================================= */
+    const STORAGE_KEY = 'friends_birthday_data_v1';
+    const DISMISSED_ALERT_KEY = 'friends_birthday_alert_dismissed_';
+    const CELEBRATE_SEEN_KEY = 'friends_birthday_celebrate_seen_';
+
+    // 윤년 판별
+    function isLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
+    // 각 월별 최대 일수 (2월은 최대 29일까지 허용)
+    function getMaxDays(month, year = 2024) {
+      if (month === 2) {
+        return isLeapYear(year) ? 29 : 28;
+      }
+      if ([4, 6, 9, 11].includes(month)) {
+        return 30;
+      }
+      return 31;
+    }
+
+    // 날짜 유효성 검사
+    function validateDateInput(month, day) {
+      if (!month || !day || isNaN(month) || isNaN(day)) {
+        return { valid: false, message: '생일 월과 일을 올바르게 선택해주세요.' };
+      }
+      if (month < 1 || month > 12) {
+        return { valid: false, message: '월은 1월부터 12월 사이여야 합니다.' };
+      }
+      const maxDay = month === 2 ? 29 : getMaxDays(month, 2024);
+      if (day < 1 || day > maxDay) {
+        return { valid: false, message: `${month}월은 최대 ${maxDay}일까지 있습니다.` };
+      }
+      return { valid: true };
+    }
+
+    // 오늘 자정 기준 Date
+    function getTodayMidnight() {
+      const now = new Date();
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+    }
+
+    // D-Day 계산: 2월 29일 평년 대응 및 연말/연초 환승 고려
+    function computeFriendDDay(friend, today = getTodayMidnight()) {
+      const currentYear = today.getFullYear();
+      const isFeb29 = Number(friend.month) === 2 && Number(friend.day) === 29;
+
+      // 올해 생일 날짜 결정
+      let effectiveDayThisYear = Number(friend.day);
+      if (isFeb29) {
+        effectiveDayThisYear = isLeapYear(currentYear) ? 29 : 28;
+      }
+      let nextBirthday = new Date(currentYear, Number(friend.month) - 1, effectiveDayThisYear, 0, 0, 0, 0);
+
+      // 이미 지났으면 내년 생일로 계산
+      if (nextBirthday.getTime() < today.getTime()) {
+        const nextYear = currentYear + 1;
+        let effectiveDayNextYear = Number(friend.day);
+        if (isFeb29) {
+          effectiveDayNextYear = isLeapYear(nextYear) ? 29 : 28;
+        }
+        nextBirthday = new Date(nextYear, Number(friend.month) - 1, effectiveDayNextYear, 0, 0, 0, 0);
+      }
+
+      const diffMs = nextBirthday.getTime() - today.getTime();
+      const dDay = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+      return {
+        ...friend,
+        dDay,
+        isToday: dDay === 0,
+        isTomorrow: dDay === 1,
+        isLeapSpecial: isFeb29
+      };
+    }
+
+    /* =========================================================
+       2. 상태 관리 및 LocalStorage
+       ========================================================= */
+    let friends = [];
+    let pendingDeleteId = null;
+
+    function loadFriends() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            friends = parsed;
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn('LocalStorage 로드 실패:', e);
+      }
+      friends = [];
+    }
+
+    function saveFriends() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(friends));
+      } catch (e) {
+        showToast('저장 실패: 브라우저 저장 공간을 확인해주세요.');
+      }
+    }
+
+    /* =========================================================
+       3. DOM 요소 참조
+       ========================================================= */
+    const currentDateText = document.getElementById('currentDateText');
+    const friendListContainer = document.getElementById('friendListContainer');
+    const emptyState = document.getElementById('emptyState');
+    const emptyTitle = document.getElementById('emptyTitle');
+    const emptyDesc = document.getElementById('emptyDesc');
+    const searchInput = document.getElementById('searchInput');
+
+    // 통계 카운터
+    const statTodayCount = document.getElementById('statTodayCount');
+    const statWeekCount = document.getElementById('statWeekCount');
+    const statMonthCount = document.getElementById('statMonthCount');
+    const statTotalCount = document.getElementById('statTotalCount');
+
+    // 배너
+    const alertBanner = document.getElementById('alertBanner');
+    const alertIcon = document.getElementById('alertIcon');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertDesc = document.getElementById('alertDesc');
+    const btnDismissAlert = document.getElementById('btnDismissAlert');
+    const btnReplayCelebration = document.getElementById('btnReplayCelebration');
+
+    // 모달들
+    const friendFormModal = document.getElementById('friendFormModal');
+    const formModalTitle = document.getElementById('formModalTitle');
+    const formErrorMessage = document.getElementById('formErrorMessage');
+    const friendForm = document.getElementById('friendForm');
+    const editFriendId = document.getElementById('editFriendId');
+    const inputName = document.getElementById('inputName');
+    const selectMonth = document.getElementById('selectMonth');
+    const selectDay = document.getElementById('selectDay');
+    const leapYearNotice = document.getElementById('leapYearNotice');
+    const inputMemo = document.getElementById('inputMemo');
+    const btnOpenAddModal = document.getElementById('btnOpenAddModal');
+    const btnCloseFormModal = document.getElementById('btnCloseFormModal');
+    const btnCancelForm = document.getElementById('btnCancelForm');
+    const btnEmptyAdd = document.getElementById('btnEmptyAdd');
+
+    // 삭제 모달
+    const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+    const deleteConfirmText = document.getElementById('deleteConfirmText');
+    const btnCancelDelete = document.getElementById('btnCancelDelete');
+    const btnExecuteDelete = document.getElementById('btnExecuteDelete');
+
+    // 축하 모달
+    const celebrateModal = document.getElementById('celebrateModal');
+    const celebrateFriendNames = document.getElementById('celebrateFriendNames');
+    const celebrateFriendsSubList = document.getElementById('celebrateFriendsSubList');
+    const btnCloseCelebrate = document.getElementById('btnCloseCelebrate');
+    const btnCelebrateReplayConfetti = document.getElementById('btnCelebrateReplayConfetti');
+
+    // 예시 데이터 추가 버튼
+    const btnAddSampleData = document.getElementById('btnAddSampleData');
+
+    /* =========================================================
+       4. 날짜 셀렉트박스 옵션 채우기
+       ========================================================= */
+    function populateDateSelects() {
+      selectMonth.innerHTML = '';
+      for (let m = 1; m <= 12; m++) {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = `${m}월`;
+        selectMonth.appendChild(opt);
+      }
+      updateDaysOptions();
+    }
+
+    function updateDaysOptions() {
+      const selectedM = parseInt(selectMonth.value, 10) || 1;
+      const currentSelectedD = parseInt(selectDay.value, 10) || 1;
+      const maxDays = selectedM === 2 ? 29 : getMaxDays(selectedM, 2024);
+
+      selectDay.innerHTML = '';
+      for (let d = 1; d <= maxDays; d++) {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = `${d}일`;
+        selectDay.appendChild(opt);
+      }
+
+      if (currentSelectedD <= maxDays) {
+        selectDay.value = currentSelectedD;
+      } else {
+        selectDay.value = maxDays;
+      }
+
+      // 2월 29일 안내문구 토글
+      if (selectedM === 2 && parseInt(selectDay.value, 10) === 29) {
+        leapYearNotice.style.display = 'block';
+      } else {
+        leapYearNotice.style.display = 'none';
+      }
+    }
+
+    selectMonth.addEventListener('change', updateDaysOptions);
+    selectDay.addEventListener('change', () => {
+      const m = parseInt(selectMonth.value, 10);
+      const d = parseInt(selectDay.value, 10);
+      if (m === 2 && d === 29) {
+        leapYearNotice.style.display = 'block';
+      } else {
+        leapYearNotice.style.display = 'none';
+      }
+    });
+
+    /* =========================================================
+       5. 렌더링: 목록, D-day 계산, 통계, 알림
+       ========================================================= */
+    function renderApp() {
+      const today = getTodayMidnight();
+
+      // 오늘 날짜 텍스트
+      const now = new Date();
+      const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+      currentDateText.textContent = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
+
+      // 각 친구 D-Day 계산
+      const processedFriends = friends.map((f) => computeFriendDDay(f, today));
+
+      // D-Day 오름차순 정렬 (가장 가까운 생일부터)
+      processedFriends.sort((a, b) => {
+        if (a.dDay !== b.dDay) return a.dDay - b.dDay;
+        return a.name.localeCompare(b.name, 'ko');
+      });
+
+      // 통계 계산
+      const todayCount = processedFriends.filter((f) => f.dDay === 0).length;
+      const weekCount = processedFriends.filter((f) => f.dDay <= 7).length;
+      const currentMonth = today.getMonth() + 1;
+      const monthCount = friends.filter((f) => Number(f.month) === currentMonth).length;
+
+      statTodayCount.textContent = todayCount;
+      statWeekCount.textContent = weekCount;
+      statMonthCount.textContent = monthCount;
+      statTotalCount.textContent = friends.length;
+
+      // 오늘 생일인 친구가 있으면 '축하 애니메이션' 버튼 표시
+      btnReplayCelebration.style.display = todayCount > 0 ? 'inline-flex' : 'none';
+
+      // 검색어 필터링
+      const query = searchInput.value.trim().toLowerCase();
+      const filtered = processedFriends.filter((f) => f.name.toLowerCase().includes(query));
+
+      // 목록 표시
+      friendListContainer.innerHTML = '';
+
+      if (friends.length === 0) {
+        emptyState.style.display = 'block';
+        emptyTitle.textContent = '아직 등록된 친구가 없어요.';
+        emptyDesc.textContent = '첫 번째 친구의 생일을 등록해 보세요!';
+        btnEmptyAdd.style.display = 'inline-flex';
+      } else if (filtered.length === 0) {
+        emptyState.style.display = 'block';
+        emptyTitle.textContent = '검색 결과가 없습니다.';
+        emptyDesc.textContent = `'${query}' 친구를 찾을 수 없어요. 다른 이름으로 검색해보세요.`;
+        btnEmptyAdd.style.display = 'none';
+      } else {
+        emptyState.style.display = 'none';
+
+        filtered.forEach((friend) => {
+          const card = document.createElement('div');
+          card.className = `friend-card ${friend.isToday ? 'is-today' : ''}`;
+
+          let dDayBadgeHtml = '';
+          if (friend.dDay === 0) {
+            dDayBadgeHtml = `<span class="d-day-badge today">오늘 생일! 🎂</span>`;
+          } else if (friend.dDay === 1) {
+            dDayBadgeHtml = `<span class="d-day-badge tomorrow">내일 생일! 🎁</span>`;
+          } else if (friend.dDay <= 7) {
+            dDayBadgeHtml = `<span class="d-day-badge upcoming">D-${friend.dDay}</span>`;
+          } else {
+            dDayBadgeHtml = `<span class="d-day-badge default">D-${friend.dDay}</span>`;
+          }
+
+          let notifyLabel = '알림 없음';
+          if (friend.notifyTiming === 'both') notifyLabel = '🔔 하루 전 및 당일 알림';
+          else if (friend.notifyTiming === 'day_before') notifyLabel = '🎁 하루 전 알림';
+          else if (friend.notifyTiming === 'day_of') notifyLabel = '🎂 당일 알림';
+
+          const birthdayText = friend.isLeapSpecial
+            ? `${friend.month}월 ${friend.day}일 (윤년 2/29)`
+            : `${friend.month}월 ${friend.day}일`;
+
+          card.innerHTML = `
+            <div>
+              <div class="card-top">
+                <div class="card-friend-info">
+                  <div class="card-avatar">${friend.isToday ? '🎂' : '🎈'}</div>
+                  <div>
+                    <h3 class="friend-name-text">
+                      ${escapeHtml(friend.name)}
+                      ${friend.isToday ? '<span style="font-size:14px;">👑</span>' : ''}
+                    </h3>
+                    <div class="friend-birthday-date">${birthdayText}</div>
+                  </div>
+                </div>
+                ${dDayBadgeHtml}
+              </div>
+
+              ${friend.memo ? `<div class="card-memo">💡 ${escapeHtml(friend.memo)}</div>` : ''}
+              <div class="card-notify-status">${notifyLabel}</div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-card-action btn-edit" data-id="${friend.id}">수정</button>
+              <button class="btn-card-action delete btn-delete" data-id="${friend.id}">삭제</button>
+            </div>
+          `;
+
+          friendListContainer.appendChild(card);
+        });
+
+        // 카드 내 수정/삭제 이벤트 바인딩
+        friendListContainer.querySelectorAll('.btn-edit').forEach((btn) => {
+          btn.addEventListener('click', () => openEditModal(btn.getAttribute('data-id')));
+        });
+        friendListContainer.querySelectorAll('.btn-delete').forEach((btn) => {
+          btn.addEventListener('click', () => openDeleteModal(btn.getAttribute('data-id')));
+        });
+      }
+
+      // 상단 알림 처리
+      checkNotifications(processedFriends);
+    }
+
+    // HTML 태그 탈출 함수 (XSS 방지)
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /* =========================================================
+       6. 알림 배너 및 생일 축하 처리
+       ========================================================= */
+    function checkNotifications(processedFriends) {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const isDismissed = localStorage.getItem(`${DISMISSED_ALERT_KEY}${todayStr}`) === 'true';
+
+      if (isDismissed) {
+        alertBanner.style.display = 'none';
+        return;
+      }
+
+      // 오늘 생일 친구 (알림 설정이 'both' 또는 'day_of')
+      const todayFriends = processedFriends.filter(
+        (f) => f.dDay === 0 && (f.notifyTiming === 'both' || f.notifyTiming === 'day_of')
+      );
+
+      // 내일 생일 친구 (알림 설정이 'both' 또는 'day_before')
+      const tomorrowFriends = processedFriends.filter(
+        (f) => f.dDay === 1 && (f.notifyTiming === 'both' || f.notifyTiming === 'day_before')
+      );
+
+      if (todayFriends.length > 0) {
+        const names = todayFriends.map((f) => f.name).join(', ');
+        alertIcon.textContent = '🎂';
+        alertTitle.textContent = `오늘은 ${names}의 생일이에요! 🎂`;
+        alertDesc.textContent = '소중한 친구에게 따뜻한 축하 메시지를 전해보세요!';
+        alertBanner.style.display = 'flex';
+      } else if (tomorrowFriends.length > 0) {
+        const names = tomorrowFriends.map((f) => f.name).join(', ');
+        alertIcon.textContent = '🎁';
+        alertTitle.textContent = `내일은 ${names}의 생일이에요! 🎁`;
+        alertDesc.textContent = '생일 선물을 미리 준비하거나 축하할 준비를 해보세요!';
+        alertBanner.style.display = 'flex';
+      } else {
+        alertBanner.style.display = 'none';
+      }
+    }
+
+    btnDismissAlert.addEventListener('click', () => {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      try {
+        localStorage.setItem(`${DISMISSED_ALERT_KEY}${todayStr}`, 'true');
+      } catch (e) {}
+      alertBanner.style.display = 'none';
+    });
+
+    /* =========================================================
+       7. 당일 특별 폭죽 애니메이션 & 축하 팝업
+       ========================================================= */
+    function triggerBirthdayCelebration(force = false) {
+      const today = getTodayMidnight();
+      const processed = friends.map((f) => computeFriendDDay(f, today));
+      const todayFriends = processed.filter((f) => f.dDay === 0);
+
+      if (todayFriends.length === 0) return;
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const seenKey = `${CELEBRATE_SEEN_KEY}${todayStr}`;
+
+      if (!force && localStorage.getItem(seenKey) === 'true') {
+        return; // 이미 오늘 축하창을 본 경우 자동 반복 방지
+      }
+
+      // 모달 내용 세팅
+      celebrateFriendNames.textContent = todayFriends.map((f) => f.name).join(', ');
+      celebrateFriendsSubList.innerHTML = '';
+      todayFriends.forEach((f) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'background:#FFF0F3; border:1px solid #FFCCD5; padding:8px 12px; border-radius:12px; margin-bottom:6px; font-size:12px;';
+        item.innerHTML = `<strong>👑 ${escapeHtml(f.name)}</strong> (${f.month}월 ${f.day}일) ${f.memo ? `· <em>${escapeHtml(f.memo)}</em>` : ''}`;
+        celebrateFriendsSubList.appendChild(item);
+      });
+
+      // 모달 표시
+      celebrateModal.classList.add('show');
+      runConfettiAnimation(4000);
+
+      try {
+        localStorage.setItem(seenKey, 'true');
+      } catch (e) {}
+    }
+
+    btnCloseCelebrate.addEventListener('click', () => {
+      celebrateModal.classList.remove('show');
+    });
+
+    btnCelebrateReplayConfetti.addEventListener('click', () => {
+      runConfettiAnimation(4000);
+    });
+
+    btnReplayCelebration.addEventListener('click', () => {
+      triggerBirthdayCelebration(true);
+    });
+
+    // 순수 Canvas 2D 폭죽 색종이 구현
+    let confettiAnimId = null;
+    function runConfettiAnimation(durationMs = 4000) {
+      const canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
+
+      // 모션 감소 선호 검사
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      canvas.style.display = 'block';
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      const colors = ['#FF7597', '#F472B6', '#A78BFA', '#C084FC', '#FBBF24', '#FCD34D', '#6EE7B7', '#93C5FD'];
+      const particles = [];
+      const particleCount = Math.min(130, Math.floor((width * height) / 9000));
+
+      for (let i = 0; i < particleCount; i++) {
+        const fromLeft = i % 2 === 0;
+        particles.push({
+          x: fromLeft ? width * 0.2 + (Math.random() * 160 - 80) : width * 0.8 + (Math.random() * 160 - 80),
+          y: height * 0.25 + (Math.random() * 80 - 40),
+          vx: (fromLeft ? 1 : -1) * (Math.random() * 8 + 3) + (Math.random() * 6 - 3),
+          vy: -(Math.random() * 12 + 6),
+          size: Math.random() * 8 + 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 8,
+          wobble: Math.random() * Math.PI * 2,
+          wobbleSpeed: Math.random() * 0.1 + 0.05,
+          shape: Math.random() > 0.4 ? 'rect' : 'circle'
+        });
+      }
+
+      const startTime = performance.now();
+      if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+
+      function loop(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = elapsed / durationMs;
+
+        ctx.clearRect(0, 0, width, height);
+        const fade = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) / 0.2) : 1;
+
+        particles.forEach((p) => {
+          p.vy += 0.32; // 중력
+          p.vx *= 0.99;
+          p.x += p.vx + Math.sin(p.wobble) * 1.5;
+          p.y += p.vy;
+          p.rotation += p.rotSpeed;
+          p.wobble += p.wobbleSpeed;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.globalAlpha = fade;
+          ctx.fillStyle = p.color;
+
+          if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.6);
+          }
+          ctx.restore();
+        });
+
+        if (progress < 1) {
+          confettiAnimId = requestAnimationFrame(loop);
+        } else {
+          ctx.clearRect(0, 0, width, height);
+          canvas.style.display = 'none';
+        }
+      }
+
+      confettiAnimId = requestAnimationFrame(loop);
+    }
+
+    /* =========================================================
+       8. 친구 등록 / 수정 모달 핸들링
+       ========================================================= */
+    function openAddModal() {
+      editFriendId.value = '';
+      formModalTitle.innerHTML = '<span>🎂</span> 친구 생일 등록';
+      document.getElementById('btnSubmitForm').textContent = '등록하기';
+      inputName.value = '';
+      selectMonth.value = new Date().getMonth() + 1;
+      updateDaysOptions();
+      selectDay.value = new Date().getDate();
+      document.querySelector('input[name="notifyTiming"][value="both"]').checked = true;
+      inputMemo.value = '';
+      formErrorMessage.style.display = 'none';
+      friendFormModal.classList.add('show');
+      setTimeout(() => inputName.focus(), 50);
+    }
+
+    function openEditModal(friendId) {
+      const friend = friends.find((f) => f.id === friendId);
+      if (!friend) return;
+
+      editFriendId.value = friend.id;
+      formModalTitle.innerHTML = '<span>✏️</span> 친구 생일 정보 수정';
+      document.getElementById('btnSubmitForm').textContent = '수정 완료';
+      inputName.value = friend.name;
+      selectMonth.value = friend.month;
+      updateDaysOptions();
+      selectDay.value = friend.day;
+
+      const timingInput = document.querySelector(`input[name="notifyTiming"][value="${friend.notifyTiming || 'both'}"]`);
+      if (timingInput) timingInput.checked = true;
+
+      inputMemo.value = friend.memo || '';
+      formErrorMessage.style.display = 'none';
+      friendFormModal.classList.add('show');
+      setTimeout(() => inputName.focus(), 50);
+    }
+
+    function closeFormModal() {
+      friendFormModal.classList.remove('show');
+    }
+
+    btnOpenAddModal.addEventListener('click', openAddModal);
+    btnEmptyAdd.addEventListener('click', openAddModal);
+    btnCloseFormModal.addEventListener('click', closeFormModal);
+    btnCancelForm.addEventListener('click', closeFormModal);
+
+    // 폼 제출
+    friendForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formErrorMessage.style.display = 'none';
+
+      const nameVal = inputName.value.trim();
+      if (!nameVal) {
+        formErrorMessage.textContent = '친구 이름을 1자 이상 입력해주세요 (공백 제외).';
+        formErrorMessage.style.display = 'block';
+        return;
+      }
+
+      const m = parseInt(selectMonth.value, 10);
+      const d = parseInt(selectDay.value, 10);
+      const dateCheck = validateDateInput(m, d);
+      if (!dateCheck.valid) {
+        formErrorMessage.textContent = dateCheck.message;
+        formErrorMessage.style.display = 'block';
+        return;
+      }
+
+      const notifyVal = document.querySelector('input[name="notifyTiming"]:checked').value;
+      const memoVal = inputMemo.value.trim();
+      const currentId = editFriendId.value;
+      const nowIso = new Date().toISOString();
+
+      if (currentId) {
+        // 수정
+        const index = friends.findIndex((f) => f.id === currentId);
+        if (index !== -1) {
+          friends[index] = {
+            ...friends[index],
+            name: nameVal,
+            month: m,
+            day: d,
+            notifyTiming: notifyVal,
+            memo: memoVal,
+            updatedAt: nowIso
+          };
+          saveFriends();
+          renderApp();
+          closeFormModal();
+          showToast(`'${nameVal}' 친구 정보가 수정되었습니다.`);
+        }
+      } else {
+        // 신규 등록
+        const newFriend = {
+          id: 'friend_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+          name: nameVal,
+          month: m,
+          day: d,
+          notifyTiming: notifyVal,
+          memo: memoVal,
+          createdAt: nowIso,
+          updatedAt: nowIso
+        };
+        friends.push(newFriend);
+        saveFriends();
+        renderApp();
+        closeFormModal();
+        showToast(`'${nameVal}' 친구의 생일이 등록되었습니다! 🎂`);
+
+        // 만약 등록한 친구 생일이 오늘이면 즉시 축하창 트리거
+        const today = getTodayMidnight();
+        if (computeFriendDDay(newFriend, today).dDay === 0) {
+          setTimeout(() => triggerBirthdayCelebration(true), 300);
+        }
+      }
+    });
+
+    /* =========================================================
+       9. 삭제 기능
+       ========================================================= */
+    function openDeleteModal(friendId) {
+      const friend = friends.find((f) => f.id === friendId);
+      if (!friend) return;
+      pendingDeleteId = friendId;
+      deleteConfirmText.innerHTML = `<strong>${escapeHtml(friend.name)}</strong> 친구의 생일 정보(${friend.month}월 ${friend.day}일)가 목록에서 완전히 삭제됩니다.`;
+      deleteConfirmModal.classList.add('show');
+    }
+
+    btnCancelDelete.addEventListener('click', () => {
+      pendingDeleteId = null;
+      deleteConfirmModal.classList.remove('show');
+    });
+
+    btnExecuteDelete.addEventListener('click', () => {
+      if (!pendingDeleteId) return;
+      const targetFriend = friends.find((f) => f.id === pendingDeleteId);
+      const name = targetFriend ? targetFriend.name : '친구';
+
+      friends = friends.filter((f) => f.id !== pendingDeleteId);
+      saveFriends();
+      renderApp();
+      pendingDeleteId = null;
+      deleteConfirmModal.classList.remove('show');
+      showToast(`'${name}' 친구 정보가 삭제되었습니다.`);
+    });
+
+    /* =========================================================
+       10. 검색 및 예시 데이터
+       ========================================================= */
+    searchInput.addEventListener('input', () => {
+      renderApp();
+    });
+
+    btnAddSampleData.addEventListener('click', () => {
+      const now = new Date();
+      const curM = now.getMonth() + 1;
+      const curD = now.getDate();
+
+      const tomorrow = new Date(now);
+      tomorrow.setDate(now.getDate() + 1);
+
+      const inFiveDays = new Date(now);
+      inFiveDays.setDate(now.getDate() + 5);
+
+      const nowIso = new Date().toISOString();
+
+      const samples = [
+        {
+          id: 'sample_today_' + Date.now(),
+          name: '이지은 (아이유)',
+          month: curM,
+          day: curD,
+          notifyTiming: 'both',
+          memo: '오늘 생일! 💖 라벤더 꽃다발과 딸기 케이크 준비',
+          createdAt: nowIso,
+          updatedAt: nowIso
+        },
+        {
+          id: 'sample_tomorrow_' + Date.now(),
+          name: '박서준',
+          month: tomorrow.getMonth() + 1,
+          day: tomorrow.getDate(),
+          notifyTiming: 'both',
+          memo: '내일 생일! 커피 기프티콘 미리 챙기기',
+          createdAt: nowIso,
+          updatedAt: nowIso
+        },
+        {
+          id: 'sample_upcoming_' + Date.now(),
+          name: '김민지',
+          month: inFiveDays.getMonth() + 1,
+          day: inFiveDays.getDate(),
+          notifyTiming: 'day_before',
+          memo: '생일 파티 약속 잡기',
+          createdAt: nowIso,
+          updatedAt: nowIso
+        },
+        {
+          id: 'sample_leap_' + Date.now(),
+          name: '윤하늘',
+          month: 2,
+          day: 29,
+          notifyTiming: 'both',
+          memo: '2월 29일 윤년 친구 (평년엔 2월 28일에 챙기기)',
+          createdAt: nowIso,
+          updatedAt: nowIso
+        }
+      ];
+
+      friends.push(...samples);
+      saveFriends();
+      renderApp();
+      showToast('예시 친구 4명이 추가되었습니다! 🎉');
+      setTimeout(() => triggerBirthdayCelebration(true), 400);
+    });
+
+    /* =========================================================
+       11. 토스트 알림 메시지 및 모바일 모달
+       ========================================================= */
+    const mobileAccessModal = document.getElementById('mobileAccessModal');
+    const btnOpenMobileModal = document.getElementById('btnOpenMobileModal');
+    const btnCloseMobileModal = document.getElementById('btnCloseMobileModal');
+    const btnConfirmMobileModal = document.getElementById('btnConfirmMobileModal');
+    const btnCopyMobileUrl = document.getElementById('btnCopyMobileUrl');
+    const mobileUrlInput = document.getElementById('mobileUrlInput');
+
+    if (btnOpenMobileModal) {
+      btnOpenMobileModal.addEventListener('click', () => {
+        if (mobileUrlInput) mobileUrlInput.value = window.location.href;
+        mobileAccessModal.classList.add('show');
+      });
+    }
+
+    if (btnCloseMobileModal) {
+      btnCloseMobileModal.addEventListener('click', () => {
+        mobileAccessModal.classList.remove('show');
+      });
+    }
+
+    if (btnConfirmMobileModal) {
+      btnConfirmMobileModal.addEventListener('click', () => {
+        mobileAccessModal.classList.remove('show');
+      });
+    }
+
+    if (btnCopyMobileUrl) {
+      btnCopyMobileUrl.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast('접속 링크가 복사되었습니다! 📋');
+        } catch {
+          showToast('링크를 직접 선택하여 복사해주세요.');
+        }
+      });
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    /* =========================================================
+       12. 초기화 실행
+       ========================================================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDateSelects();
+      loadFriends();
+
+      // 만약 등록된 친구가 아예 없는 첫 방문이라면 유저 경험을 돕기 위해 예시 친구 1~2명 자동 등록 여부:
+      // 요구사항: "등록된 친구가 없으면 '아직 등록된 친구가 없어요. 첫 번째 친구의 생일을 등록해 보세요!'라는 안내 문구를 표시한다."
+      // 따라서 빈 배열 그대로 시작하여 안내 문구를 정상 표시합니다.
+      renderApp();
+
+      // 오늘 생일인 친구가 이미 있다면 축하 애니메이션 자동 실행
+      setTimeout(() => {
+        triggerBirthdayCelebration(false);
+      }, 500);
+    });
+  </script>
+</body>
+</html>
